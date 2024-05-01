@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:instagram/utils/global_variable.dart';
 import 'package:instagram/widget/appbar.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -31,107 +31,89 @@ class _MyHomePageState extends State<MyHomePage> {
 @override
 Widget build(BuildContext context) {
   return Scaffold(
+  
     appBar: myAppBar(),
-    bottomNavigationBar: botomNavigationBar(),
-    body: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        SizedBox(
-          height: 100,
-          child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: data.length,
-            itemBuilder: (BuildContext context, int index) {
-              return Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                    ),
-                    height: 75,
-                    width: 75,
-                    child: CircleAvatar(
-                      backgroundImage: const AssetImage("assets/color/color.jpeg"),
-                      child: SizedBox(
-                        height: 70,
-                        width: 70,
-                        child: CircleAvatar(
-                          backgroundImage: AssetImage("assets/${data[index]["image"]}"),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Text("${data[index]["name"]}")
-                ],
-              );
-            },
-            separatorBuilder: (BuildContext context, int index) {
-              return const SizedBox(width: 10);
-            },
+body: Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    SizedBox(height: 100,
+    child: ListView.separated(
+      itemCount: data.length,
+      scrollDirection: Axis.horizontal,
+      separatorBuilder: (BuildContext context, int index) {
+        return  Column(children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              ),
+              height: 75,width: 75,
+              child:   CircleAvatar(
+   backgroundImage: const AssetImage("assets/color/color.jpeg"),
+           child: SizedBox(height: 70,width: 70,
+           child: CircleAvatar(
+            backgroundImage: AssetImage(
+              "assets/${data[index]["image"]}"
+            ),
+           ),
+           ),
+            ),
+
           ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            itemCount: post.length,
-            itemBuilder: (context, i) {
-              return Column(
-                children: [
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SvgPicture.asset('assets/color/dot.svg'),
-                        Row(
-                          children: [
-                            Text("${post[i]["name"]}"),
-                            const SizedBox(width: 10),
-                            CircleAvatar(
-                              backgroundImage: AssetImage("assets/${post[i]["person"]}"),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Image.asset(
-                    "assets/post/${post[i]["image"]}",
-                    fit: BoxFit.contain,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                      SvgPicture.asset('assets/svg/save.svg',height: 30,),
-                      
-                      Row(
-                          children: [
-                            SvgPicture.asset('assets/svg/send.svg',height: 30,),
-                            const SizedBox(width: 10),
-                            SvgPicture.asset('assets/svg/messenger.svg',height: 30,),
-                              const SizedBox(width: 10),
-                            SvgPicture.asset('assets/svg/favorite.svg',height: 30,),
-                        ],),
-                    
-                    ],),
-                  ),
-                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      children: [
-                        Text("${post[i]['title']}",textAlign: TextAlign.end,),
-                      ],
-                    ),
-                  )
-                ],
-              );
-            },
-          ),
-        ),
-      ],
+          Text("${data[index]["name"]}")
+        ],);
+      },
+      itemBuilder: (BuildContext context, int index) {
+        return const SizedBox(width: 10);
+      },
     ),
+    ),
+Expanded( 
+  child:ListView.builder(
+    itemCount: data.length,
+    itemBuilder: (context,i){
+      return  Column(
+        children: [
+          SizedBox(height: 10,),
+          Padding(padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+            children: [
+                SvgPicture.asset("assets/color/dot.svg"),
+                Row(children: [
+                  Text("${post[i]["name"]}"),
+                  SizedBox(width: 10,),
+                  CircleAvatar(
+                    backgroundImage: AssetImage("assets/${post[i]["person"]}"),
+                  )
+                ],)
+          ],),
+          ),
+        Image.asset("assets/post/${post[i]["image"]}",
+        fit:BoxFit.cover
+        ),
+        Padding(padding: EdgeInsets.all(10),
+       child:  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+SvgPicture.asset("assets/svg/save.svg",height: 30,),
+Row(children: [
+  SvgPicture.asset("assets/svg/send.svg",height: 30,),
+  SizedBox(width: 10,),
+  SvgPicture.asset("assets/svg/messenger.svg",height: 30,),
+    SizedBox(width: 10,),
+  SvgPicture.asset("assets/svg/favorite.svg",height: 30,),
+],)
+        ],)
+        )
+        ],
+      );
+    }
+  
+  ) 
+
+)
+  ],
+),
   );
 }
 }
